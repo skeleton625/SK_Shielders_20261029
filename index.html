@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="앞으로 1년 동안 출시될 기대작을 한눈에 보는 게임 캘린더" />
+  <title>PLAYBOOK — 출시 예정 게임 캘린더</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise"></div>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="PLAYBOOK 홈"><span class="brand-mark">✦</span> PLAYBOOK</a>
+    <nav aria-label="주요 메뉴"><a href="#calendar">캘린더</a><a href="#genres">장르별</a><a href="#about">서비스 소개</a></nav>
+    <button class="icon-button" id="themeToggle" aria-label="테마 전환">◐</button>
+  </header>
+
+  <main id="top">
+    <section class="hero wrap">
+      <div class="eyebrow"><span class="live-dot"></span> 2026.11 — 2027.10</div>
+      <h1>다음 플레이를 <em>미리 만나보세요.</em></h1>
+      <p class="hero-copy">앞으로 1년, 가장 기다려지는 게임들의 출시 일정과 핵심 정보를 한 곳에 모았습니다.</p>
+      <div class="hero-stats"><div><strong id="totalCount">12</strong><span>개의 기대작</span></div><div><strong>08</strong><span>개 장르</span></div><div><strong>12</strong><span>개월 캘린더</span></div></div>
+    </section>
+
+    <section class="toolbar wrap" id="calendar">
+      <div class="section-heading"><div><span class="kicker">RELEASE RADAR</span><h2>출시 캘린더</h2></div><p>출시일은 공식 발표에 따라 업데이트됩니다.</p></div>
+      <div class="controls"><div class="search-wrap"><span>⌕</span><input id="searchInput" type="search" placeholder="게임 제목, 장르 검색" /></div><div class="select-wrap"><select id="genreFilter"><option value="all">모든 장르</option><option>RPG</option><option>액션</option><option>어드벤처</option><option>전략</option><option>시뮬레이션</option><option>스포츠</option></select></div><button class="view-toggle active" data-view="grid" aria-label="카드 보기">▦</button><button class="view-toggle" data-view="list" aria-label="목록 보기">☰</button></div>
+    </section>
+    <section class="games wrap" id="gamesGrid" aria-live="polite"></section>
+    <div class="empty-state" id="emptyState" hidden>검색 조건에 맞는 게임이 없습니다.<button id="resetButton">필터 초기화</button></div>
+
+    <section class="genres wrap" id="genres"><div class="section-heading"><div><span class="kicker">EXPLORE BY MOOD</span><h2>취향으로 탐색하기</h2></div></div><div class="genre-links"><button data-genre="RPG">RPG <span>03</span></button><button data-genre="액션">액션 <span>03</span></button><button data-genre="어드벤처">어드벤처 <span>02</span></button><button data-genre="전략">전략 <span>02</span></button></div></section>
+    <section class="about wrap" id="about"><div class="about-tag">PLAYBOOK<br>ABOUT</div><div><h2>좋은 게임을 기다리는<br>가장 영리한 방법.</h2><p>공개된 정보를 바탕으로 출시 예정작을 큐레이션합니다. 날짜와 플랫폼 정보는 변경될 수 있으며, 최종 정보는 각 게임의 공식 채널에서 확인해 주세요.</p></div></section>
+  </main>
+  <footer class="site-footer wrap"><span>© 2026 PLAYBOOK</span><span>MADE FOR YOUR NEXT ADVENTURE</span></footer>
+  <script src="app.js"></script>
+</body>
+</html>
