@@ -1,8 +1,22 @@
+param(
+  [int]$Port = 8000
+)
+
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $listener = [System.Net.HttpListener]::new()
-$listener.Prefixes.Add('http://localhost:8000/')
-$listener.Start()
-Write-Host 'PLAYBOOK server: http://localhost:8000'
+
+$assignedPort = $Port
+try {
+  $listener.Prefixes.Add("http://localhost:$assignedPort/")
+  $listener.Start()
+} catch {
+  $assignedPort = if ($Port -eq 8000) { 8080 } else { $Port + 1 }
+  $listener = [System.Net.HttpListener]::new()
+  $listener.Prefixes.Add("http://localhost:$assignedPort/")
+  $listener.Start()
+}
+
+Write-Host "PLAYBOOK server: http://localhost:$assignedPort/"
 while ($listener.IsListening) {
   $context = $listener.GetContext()
   $path = $context.Request.Url.AbsolutePath.TrimStart('/')
@@ -11,8 +25,15 @@ while ($listener.IsListening) {
   if (Test-Path -LiteralPath $file -PathType Leaf) {
     $bytes = [System.IO.File]::ReadAllBytes($file)
     $context.Response.StatusCode = 200
-    $context.Response.ContentType = switch ([IO.Path]::GetExtension($file)) { '.html' {'text/html; charset=utf-8'} '.css' {'text/css; charset=utf-8'} '.js' {'text/javascript; charset=utf-8'} default {'application/octet-stream'} }
+    $context.Response.ContentType = switch ([IO.Path]::GetExtension($file)) {
+      '.html' { 'text/html; charset=utf-8' }
+      '.css'  { 'text/css; charset=utf-8' }
+      '.js'   { 'text/javascript; charset=utf-8' }
+      default { 'application/octet-stream' }
+    }
     $context.Response.OutputStream.Write($bytes, 0, $bytes.Length)
-  } else { $context.Response.StatusCode = 404 }
+  } else {
+    $context.Response.StatusCode = 404
+  }
   $context.Response.Close()
 }
